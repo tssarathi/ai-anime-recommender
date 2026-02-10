@@ -1,0 +1,20 @@
+# LangChain Integrations
+langchain
+langchain-community
+langchain_groq
+langchain_huggingface
+
+# Vector Store
+chromadb
+
+# User Interface
+streamlit
+
+# Data Handling
+pandas
+
+# Environment Variable Management
+python-dotenv
+
+# Embedding Models
+sentence-transformers
