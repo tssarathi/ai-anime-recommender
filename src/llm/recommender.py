@@ -13,7 +13,6 @@ class AnimeRecommender:
             llm=self.llm,
             chain_type="stuff",
             retriever=retriever,
-            prompt=self.prompt,
             return_source_documents=True,
             chain_type_kwargs={"prompt": self.prompt},
         )
