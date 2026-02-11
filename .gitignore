@@ -3,6 +3,9 @@
 
 # Python
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
 
 # Environment variables
 .env
@@ -12,12 +15,23 @@ __pycache__/
 
 # Setup Tools
 *.egg-info/
+dist/
+build/
 
 # Logs
-Logs/
+logs/
 
 # Workspace Settings
 .vscode/
 
 # Cursor
 .cursor/
+
+# Mypy
+.mypy_cache/
+
+# Ruff
+.ruff_cache/
+
+# Data (large files — track separately or use DVC)
+data/
