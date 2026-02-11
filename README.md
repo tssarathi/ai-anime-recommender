@@ -84,7 +84,6 @@ A production-grade **Retrieval-Augmented Generation (RAG)** anime recommendation
 | **Cloud Infra**      | Google Cloud Platform — Compute Engine E2 instance               |
 | **Monitoring**       | Grafana Cloud (metrics, logs, dashboards, alerting)               |
 | **Language**         | Python 3.11                                                       |
-| **Linting**          | Ruff (linter + formatter)                                         |
 | **Config**           | python-dotenv (environment variable management)                   |
 
 ---
