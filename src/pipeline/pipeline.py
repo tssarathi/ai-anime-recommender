@@ -12,7 +12,7 @@ class AnimeRecommendationPipeline:
         try:
             logger.info("Initializing Anime Recommendation Pipeline")
             vector_builder = VectorStoreBuilder(
-                csv_path="/../data/silver/anime_updated.csv", persist_dir=persist_dir
+                csv_path="data/silver/anime_updated.csv", persist_dir=persist_dir
             )
 
             retriever = vector_builder.load_vector_store().as_retriever(
@@ -26,7 +26,7 @@ class AnimeRecommendationPipeline:
             logger.error(
                 f"Anime Recommendation Pipeline Initialization Failed: {str(e)}"
             )
-            raise CustomException("Error during pipleine initialization", e)
+            raise CustomException("Error during pipeline initialization", e)
 
     def recommend(self, query: str) -> tuple[str, list]:
         try:
