@@ -7,10 +7,10 @@ from src.utils.custom_exception import CustomException
 logger = get_logger(__name__)
 
 class AnimeRecommendationPipeline:
-    def __init__(self, persist_dir:str="chroma_db"):
+    def __init__(self, persist_dir:str="data/gold/"):
         try:
             logger.info("Initializing Anime Recommendation Pipeline")
-            vector_builder = VectorStoreBuilder(csv_path="", persist_dir=persist_dir)
+            vector_builder = VectorStoreBuilder(csv_path="/../data/silver/anime_updated.csv", persist_dir=persist_dir)
 
             retriever = vector_builder.load_vector_store().as_retriever()
             self.recommender = AnimeRecommender(retriever, GROQ_API_KEY, MODEL_NAME)
