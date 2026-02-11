@@ -15,7 +15,9 @@ class AnimeRecommendationPipeline:
                 csv_path="/../data/silver/anime_updated.csv", persist_dir=persist_dir
             )
 
-            retriever = vector_builder.load_vector_store().as_retriever()
+            retriever = vector_builder.load_vector_store().as_retriever(
+                search_kwargs={"k": 10}
+            )
             self.recommender = AnimeRecommender(retriever, GROQ_API_KEY, MODEL_NAME)
 
             logger.info("Anime Recommendation Pipeline Initialized Successfully")
