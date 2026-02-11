@@ -27,7 +27,7 @@ A production-grade **Retrieval-Augmented Generation (RAG)** anime recommendation
 │                          GCP Compute Engine (E2 VM)                         │
 │                                                                             │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │                        Minikube (K8s Cluster)                         │  │
+│  │                           Minikube (K8s)                              │  │
 │  │                                                                       │  │
 │  │  ┌─────────────────────────────────────────────────────────────────┐  │  │
 │  │  │                    Pod: llmops-app                              │  │  │
@@ -55,14 +55,13 @@ A production-grade **Retrieval-Augmented Generation (RAG)** anime recommendation
 │  │  └──────────────────────┘                                             │  │
 │  └───────────────────────────────────────────────────────────────────────┘  │
 └──────────────────┬──────────────────────────────────────────────────────────┘
-                   │ metrics & logs
+                   │ K8s metrics & logs
                    ▼
        ┌───────────────────────┐
        │    Grafana Cloud      │
        │  ┌─────────────────┐  │
+       │  │ K8s Observability│  │
        │  │ Dashboards      │  │
-       │  │ Metrics & Logs  │  │
-       │  │ Alerts          │  │
        │  └─────────────────┘  │
        └───────────────────────┘
 ```
@@ -81,8 +80,9 @@ A production-grade **Retrieval-Augmented Generation (RAG)** anime recommendation
 | **Data Processing**  | Pandas (CSV ETL pipeline)                                         |
 | **Containerization** | Docker (Python 3.11-slim)                                         |
 | **K8s Runtime**      | Minikube (single-node cluster on GCP VM)                          |
+| **K8s Package Mgmt** | Helm (chart-based deployment onto Minikube)                       |
 | **Cloud Infra**      | Google Cloud Platform — Compute Engine E2 instance               |
-| **Monitoring**       | Grafana Cloud (metrics, logs, dashboards, alerting)               |
+| **Monitoring**       | Grafana Cloud — Kubernetes Monitoring                            |
 | **Language**         | Python 3.11                                                       |
 | **Config**           | python-dotenv (environment variable management)                   |
 
@@ -105,7 +105,7 @@ anime_with_synopsis.csv   ───▶  anime_updated.csv         ───▶  
 
 **`build_pipeline.py`** orchestrates this full ETL:
 
-1. **`AnimeDataLoader`** — reads the bronze CSV, validates required columns (`Name`, `Genres`, `sypnopsis`), concatenates fields into a single `document` column, and writes to silver.
+1. **`AnimeDataLoader`** — reads the bronze CSV, validates required columns (`Name`, `Genres`, `synopsis`), concatenates fields into a single `document` column, and writes to silver.
 2. **`VectorStoreBuilder`** — loads the silver CSV via LangChain's `CSVLoader`, splits documents with `CharacterTextSplitter`, generates embeddings, and persists to ChromaDB.
 
 ---
@@ -245,19 +245,17 @@ HUGGINGFACEHUB_API_TOKEN=your_huggingface_token_here
 
 ## Monitoring — Grafana Cloud
 
-The application is monitored using **Grafana Cloud**, providing full observability over the Kubernetes cluster and the running application.
+Kubernetes observability is configured through **Grafana Cloud**, providing cluster-level visibility into the Minikube (GCP E2) cluster.
 
 ### What's Monitored
 
-| Signal                  | Source                     | Details                                                       |
-| ----------------------- | -------------------------- | ------------------------------------------------------------- |
-| **Infra Metrics** | Grafana Alloy (Prometheus) | CPU, memory, disk I/O on the GCP E2 VM                        |
-| **K8s Metrics**   | Alloy + kube-state-metrics | Pod health, restart count, container resource usage           |
-| **App Logs**      | Alloy (Loki)               | Streamlit request logs, pipeline info/error logs, LLM latency |
-| **Alerting**      | Grafana Cloud Alerting     | Configurable alerts on pod crashes, high CPU, error spikes    |
+| Signal                | Source                     | Details                                                   |
+| --------------------- | -------------------------- | --------------------------------------------------------- |
+| **K8s Metrics** | Alloy + kube-state-metrics | Pod health, restart count, container resource usage       |
+| **K8s Logs**    | Alloy (Loki)               | Container stdout/stderr logs from all pods in the cluster |
 
 ### Dashboard Highlights
 
 - **Cluster Overview** — pod status, node resource utilization, restart history
-- **Application Health** — request throughput, recommendation latency, error rate
-- **Resource Usage** — container CPU/memory vs. limits, disk usage for ChromaDB
+- **Workload Health** — deployment rollout status, replica availability, restart counts
+- **Resource Usage** — container CPU/memory consumption vs. requests and limits
