@@ -5,7 +5,7 @@ with open("requirements.txt") as f:
 
 setup(
     name="ai-anime-recommender",
-    version="0.3",
+    version="0.4",
     author="Sarathi",
     packages=find_packages(),
     install_requires=requirements,

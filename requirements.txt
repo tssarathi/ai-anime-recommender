@@ -1,5 +1,6 @@
 # LangChain Integrations
 langchain
+langchain-classic
 langchain-community
 langchain-text-splitters
 langchain_groq
@@ -10,6 +11,7 @@ chromadb
 
 # User Interface
 streamlit
+watchdog
 
 # Data Handling
 pandas
