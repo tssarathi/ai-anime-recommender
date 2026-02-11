@@ -1,0 +1,32 @@
+from src.etl.vector_store import VectorStoreBuilder
+from src.llm.recommender import AnimeRecommender
+from src.config.config import GROQ_API_KEY, MODEL_NAME
+from src.utils.logger import get_logger
+from src.utils.custom_exception import CustomException
+
+logger = get_logger(__name__)
+
+class AnimeRecommendationPipeline:
+    def __init__(self, persist_dir:str="chroma_db"):
+        try:
+            logger.info("Initializing Anime Recommendation Pipeline")
+            vector_builder = VectorStoreBuilder(csv_path="", persist_dir=persist_dir)
+
+            retriever = vector_builder.load_vector_store().as_retriever()
+            self.recommender = AnimeRecommender(retriever, GROQ_API_KEY, MODEL_NAME)
+
+            logger.info("Anime Recommendation Pipeline Initialized Successfully")
+
+        except Exception as e:
+            logger.error(f"Anime Recommendation Pipeline Initialization Failed: {str(e)}")
+            raise CustomException("Error during pipleine initialization", e)
+
+        def recommend(self, query:str) -> str:
+            try:
+                logger.info(f"Recommendation requested for query: {query}")
+                recommendations = self.recommender.get_recommendations(query)
+                logger.info(f"Recommendations: {recommendations}")
+                return recommendations
+            except Exception as e:
+                logger.error(f"Error during recommendation: {str(e)}")
+                raise CustomException("Error during recommendation", e)
