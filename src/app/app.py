@@ -58,6 +58,4 @@ if "source_docs" in st.session_state and st.session_state.source_docs:
         for i, doc in enumerate(st.session_state.source_docs, 1):
             st.markdown(f"**Document {i}**")
             st.text(doc.page_content)
-            if doc.metadata:
-                st.caption(f"Metadata: {doc.metadata}")
             st.divider()
