@@ -35,3 +35,6 @@ logs/
 
 # Data (large files — track separately or use DVC)
 data/
+
+# Misc
+LinkedIn Post
