@@ -14,8 +14,6 @@ A production-grade **Retrieval-Augmented Generation (RAG)** anime recommendation
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Local Setup](#local-setup)
-  - [Docker](#docker)
-  - [Kubernetes (Minikube on GCP E2)](#kubernetes-minikube-on-gcp-e2)
 - [Environment Variables](#environment-variables)
 - [Monitoring — Grafana Cloud](#monitoring--grafana-cloud)
 - [Key Design Decisions](#key-design-decisions)
@@ -197,10 +195,7 @@ ai-anime-recommender/
 - **Python 3.11+**
 - **Groq API Key** — [Get one free at groq.com](https://console.groq.com)
 - **HuggingFace API Token** — [Generate at huggingface.co](https://huggingface.co/settings/tokens)
-- **Docker** (for containerized deployment)
-- **Minikube + kubectl** (for Kubernetes deployment)
-- **GCP Account** (for cloud VM hosting)
-- **Grafana Cloud Account** — [Free tier at grafana.com](https://grafana.com/products/cloud/)
+- **Docker** (installed locally for containerized runs)
 
 ### Local Setup
 
