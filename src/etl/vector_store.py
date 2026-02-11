@@ -7,11 +7,12 @@ from src.config.config import HUGGINGFACE_API_TOKEN
 
 
 class VectorStoreBuilder:
-    def __init__(self, csv_path: str, persist_dir: str = "/../data/gold/chroma_db"):
-        self.csvpath = csv_path
+    def __init__(self, csv_path: str, persist_dir: str = "data/gold/"):
+        self.csv_path = csv_path
         self.persist_dir = persist_dir
         self.embedding = HuggingFaceEmbeddings(
-            model_name="all-MiniLM-L6-v2", token=HUGGINGFACE_API_TOKEN
+            model_name="all-MiniLM-L6-v2",
+            model_kwargs={"token": HUGGINGFACE_API_TOKEN},
         )
 
     def build_and_save_vectorstore(self):
@@ -23,10 +24,9 @@ class VectorStoreBuilder:
         splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
         texts = splitter.split_documents(data)
 
-        db = Chroma.from_documents(
+        Chroma.from_documents(
             texts, self.embedding, persist_directory=self.persist_dir
         )
-        db.persist()
 
     def load_vector_store(self):
         return Chroma(
