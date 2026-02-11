@@ -2,6 +2,8 @@ import streamlit as st
 
 from src.pipeline.pipeline import AnimeRecommendationPipeline
 
+GREETING = "Hi! I'm an anime recommender. How can I help you today?"
+
 st.set_page_config(
     page_title="Anime Recommendation System",
     page_icon=":tv:",
@@ -24,10 +26,7 @@ st.caption(
 
 if "chat" not in st.session_state:
     st.session_state.chat = [
-        {
-            "role": "assistant",
-            "content": "Hi! I'm an anime recommender. How can I help you today?",
-        }
+        {"role": "assistant", "content": GREETING}
     ]
 
 query = st.chat_input(
@@ -36,10 +35,7 @@ query = st.chat_input(
 
 if query:
     st.session_state.chat = [
-        {
-            "role": "assistant",
-            "content": "Hi! I'm an anime recommender. How can I help you today?",
-        },
+        {"role": "assistant", "content": GREETING},
         {"role": "user", "content": query},
     ]
 
