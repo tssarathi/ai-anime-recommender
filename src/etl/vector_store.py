@@ -1,7 +1,7 @@
-from langchain_text_splitters import CharacterTextSplitter
-from langchain_community.vectorstores import Chroma
 from langchain_community.document_loaders.csv_loader import CSVLoader
+from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_text_splitters import CharacterTextSplitter
 
 from src.config.config import HUGGINGFACE_API_TOKEN
 
@@ -24,9 +24,7 @@ class VectorStoreBuilder:
         splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
         texts = splitter.split_documents(data)
 
-        Chroma.from_documents(
-            texts, self.embedding, persist_directory=self.persist_dir
-        )
+        Chroma.from_documents(texts, self.embedding, persist_directory=self.persist_dir)
 
     def load_vector_store(self):
         return Chroma(
