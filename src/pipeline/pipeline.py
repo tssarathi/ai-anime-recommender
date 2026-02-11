@@ -26,12 +26,12 @@ class AnimeRecommendationPipeline:
             )
             raise CustomException("Error during pipleine initialization", e)
 
-    def recommend(self, query: str) -> str:
+    def recommend(self, query: str) -> tuple[str, list]:
         try:
             logger.info(f"Recommendation requested for query: {query}")
-            recommendations = self.recommender.get_recommendations(query)
+            recommendations, source_docs = self.recommender.get_recommendations(query)
             logger.info(f"Recommendations: {recommendations}")
-            return recommendations
+            return recommendations, source_docs
         except Exception as e:
             logger.error(f"Error during recommendation: {str(e)}")
             raise CustomException("Error during recommendation", e)
