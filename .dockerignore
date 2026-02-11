@@ -1,0 +1,45 @@
+# Virtual Environment
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Environment variables
+.env
+
+# MacOS
+.DS_Store
+
+# Setup Tools
+*.egg-info/
+dist/
+build/
+
+# Logs
+logs/
+
+# Workspace Settings
+.vscode/
+
+# Cursor
+.cursor/
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Linter caches (not needed in container)
+.mypy_cache/
+.ruff_cache/
+
+# Kubernetes manifests
+deployment.yaml
+service.yaml
