@@ -12,3 +12,6 @@ __pycache__/
 
 # Setup Tools
 *.egg-info/
+
+# Logs
+Logs/
