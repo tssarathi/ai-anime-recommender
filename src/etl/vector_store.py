@@ -6,8 +6,8 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from src.config.config import HUGGINGFACE_API_TOKEN
 
 
-class VectoreStoreBuilder:
-    def __init__(self, csv_path: str, persist_dir: str = "chroma_db"):
+class VectorStoreBuilder:
+    def __init__(self, csv_path: str, persist_dir: str = "/../data/gold/chroma_db"):
         self.csvpath = csv_path
         self.persist_dir = persist_dir
         self.embedding = HuggingFaceEmbeddings(
